@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library_TOP</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="actions">
+        <button id="add-book"> Add book </button>
+        <button id="export"> Export list</button>
+        </div>
+        <h1>My Library</h1>
+    </header>
+    <main id="bookshelf">
+        <h1 class="counter" id="read-counter"> Read: </h1>
+        <h1 class="counter" id="currently-reading-counter"> Currently Reading: </h1>
+        <h1 class="counter" id="wishlist-counter"> Wishlist: </h1>
+    <div id="read-shelf" class="shelf"> 
+    </div> 
+    <div id="currently-reading-shelf" class="shelf">
+    </div>
+    <div id="wishlist-shelf" class="shelf">
+    </div>
+</main>
+<div class="modal-backdrop">
+<div class="modal"> 
+    <form id="book-form" action="#" method="post">
+        <label for="title"> Title: </label>
+        <input type="text" id="title" name="title" required> 
+
+        <label for="author"> Author: </label>
+        <input type="text" id="author" name="author" required> 
+
+        <label for="status"> Status: </label>
+        <select id="status" name="status" required> 
+            <option value="read"> Read </option>
+            <option value="currently-reading"> Currently Reading </option>
+            <option value="wishlist"> Wishlist </option>
+        </select>
+    <button type="submit" id="submit-book"> ADD </button>
+    <button id="cancel"> CANCEL </button>
+    </form>
+</div>
+</div>
+</body>
+</html>

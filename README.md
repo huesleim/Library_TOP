@@ -1,0 +1,1 @@
+Library application as an exercise on Javascript objects for The Odin Project.
