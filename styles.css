@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Skranji:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Skranji:wght@400;700&display=swap");
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Montserrat', sans-serif;
+    font-family: "Montserrat", sans-serif;
 }
 body {
     display: flex;
@@ -14,17 +14,27 @@ header {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    font-size: 24px;
+    font-size: 16px;
     font-family: arial;
     flex: 0 0 auto;
+    background-color: #504035;
+    color: #291c14;
 }
 .actions {
     display: flex;
     gap: 10px;
     padding: 20px;
 }
-header button{
+header button,
+#importBtn {
     padding: 5px;
+    background-color: #7a573d;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    border: none;
+    width: 120px;
+    text-align: center;
+    font-size: 14px;
 }
 
 /* BODY GRID */
@@ -32,32 +42,35 @@ header button{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: auto 1fr;
-    gap: 10px;  
+    gap: 10px;
     padding: 20px;
-    background-color: brown;
+    background-color: #504035;
     flex: 1;
 }
 
 .counter {
-    color: white;
+    color: #291c14;
     font-weight: bold;
     font-size: 20px;
     margin-bottom: 10px;
 }
 .shelf {
-    display:grid;
+    display: grid;
     grid-template-rows: repeat(4, 1fr);
     grid-template-columns: repeat(5, 1fr);
     gap: 5px;
-    background-color: burlywood;
+    background-color: #7a573d;
     padding: 5px;
+    box-shadow: rgb(31, 31, 31) 3px 3px 6px 0px inset,
+        rgba(0, 0, 0, 0.5) -3px -3px 6px 1px inset;
 }
 
-.book{
+.book {
     background-color: red;
     font-size: 12px;
     color: white;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+        sans-serif;
     background-size: cover;
     position: relative;
     z-index: 0;
@@ -91,7 +104,7 @@ header button{
     cursor: pointer;
     transform: scale(1.2);
     transition: transform 0.2s;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
     z-index: 10;
 }
 .book:hover .book-info {
@@ -111,24 +124,74 @@ header button{
     width: 20px;
     height: 20px;
     cursor: pointer;
-    justify-self:end;
+    justify-self: end;
 }
 .book:hover .delete-btn {
     display: block;
     z-index: 2;
 }
+
 /* MODAL */
 .modal {
     display: none;
     position: fixed;
-    background: lightblue;
-    width: 50dvw;
-    height: 50dvh;
- top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+    background: #504035;
+    width: 25dvw;
+    height: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid #291c14;
+    border-radius: 10px;
+    z-index: 100;
 }
+
 .modal.active {
     display: flex;
 }
 
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    backdrop-filter: blur(6px);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 99;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    width: 100%;
+}
+
+input,
+select {
+    padding: 3px;
+    border-radius: 5px;
+    border: 1px solid #291c14;
+    background-color: #7a573d;
+    color: #291c14;
+}
+.button-container {
+    display: flex;
+    gap: 10px;
+    align-self: end;
+}
+
+.modal button {
+    width: 100px;
+    align-self: center;
+    padding: 10px;
+    background-color: #7a573d;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    border: none;
+    margin-top: 10px;
+    color: #291c14;
+}
+.modal-backdrop:has(.modal.active) {
+    opacity: 1;
+    pointer-events: auto;
+}

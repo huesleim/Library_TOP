@@ -12,6 +12,8 @@
         <div class="actions">
         <button id="add-book"> Add book </button>
         <button id="export"> Export list</button>
+        <label for="importFile" id="importBtn">Import list</label>
+        <input type="file" id="importFile" accept=".json" hidden>
         </div>
         <h1>My Library</h1>
     </header>
@@ -41,6 +43,7 @@
             <option value="currently-reading"> Currently Reading </option>
             <option value="wishlist"> Wishlist </option>
         </select>
+    <div class="button-container">
     <button type="submit" id="submit-book"> ADD </button>
     <button id="cancel"> CANCEL </button>
     </form>

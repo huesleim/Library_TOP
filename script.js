@@ -1,18 +1,27 @@
-const exportList = document.getElementById("export-list");
+const exportList = document.getElementById("export");
+const importList = document.getElementById("importFile");
 const addBook = document.getElementById("add-book");
 const form = document.getElementById("book-form");
 const cancel = document.getElementById("cancel");
 const modal = document.querySelector(".modal");
 const modalBackdrop = document.querySelector(".modal-backdrop");
 const readCounter = document.getElementById("read-counter");
-const currentlyReadingCounter = document.getElementById("currently-reading-counter");
+const currentlyReadingCounter = document.getElementById(
+    "currently-reading-counter"
+);
 const wishlistCounter = document.getElementById("wishlist-counter");
-const myLibrary = [];
+let myLibrary = [];
 
-function updaceCounters() {
-    readCounter.textContent = ` Read: ${document.getElementById("read-shelf").children.length}`;
-    currentlyReadingCounter.textContent = ` Currently Reading: ${document.getElementById("currently-reading-shelf").children.length}`;
-    wishlistCounter.textContent = ` Wishlist: ${document.getElementById("wishlist-shelf").children.length}`;
+function updateCounters() {
+    readCounter.textContent = ` Read: ${
+        document.getElementById("read-shelf").children.length
+    }`;
+    currentlyReadingCounter.textContent = ` Currently Reading: ${
+        document.getElementById("currently-reading-shelf").children.length
+    }`;
+    wishlistCounter.textContent = ` Wishlist: ${
+        document.getElementById("wishlist-shelf").children.length
+    }`;
 }
 
 function Book(title, author, status, cover = null) {
@@ -54,8 +63,8 @@ function renderLibrary() {
         delBtn.addEventListener("click", (e) => {
             myLibrary.splice(myLibrary.indexOf(book), 1);
             renderLibrary();
-            updaceCounters();
-        })
+            updateCounters();
+        });
         bookDiv.appendChild(delBtn);
 
         if (book.cover) {
@@ -66,15 +75,15 @@ function renderLibrary() {
         switch (book.status) {
             case "read":
                 readshelf.appendChild(bookDiv);
-                updaceCounters();
+                updateCounters();
                 break;
             case "currently-reading":
                 currentlyReadingshelf.appendChild(bookDiv);
-                updaceCounters();
+                updateCounters();
                 break;
             case "wishlist":
                 wishlistshelf.appendChild(bookDiv);
-                updaceCounters();
+                updateCounters();
                 break;
         }
     });
@@ -97,6 +106,32 @@ async function fetchCoverByTitle(book) {
     return null;
 }
 
+function exportLibrary() {
+    const dataStr = JSON.stringify(myLibrary, null, 2);
+    const blob = new Blob([dataStr], { type: "application/json" });
+    const fileURL = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = fileURL;
+    link.download = "myLibrary.json";
+    link.click();
+    URL.revokeObjectURL(fileURL);
+}
+
+function importLibrary() {
+    const file = importList.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.readAsText(file);
+    reader.onload = (e) => {
+        try {
+            const importedLibrary = JSON.parse(e.target.result);
+            myLibrary = importedLibrary;
+            renderLibrary();
+        } catch (error) {
+            console.error("Error importing library:", error);
+        }
+    };
+}
 
 form.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -122,3 +157,6 @@ addBook.addEventListener("click", () => {
 cancel.addEventListener("click", () => {
     modal.classList.remove("active");
 });
+
+exportList.addEventListener("click", exportLibrary);
+importList.addEventListener("change", importLibrary);
